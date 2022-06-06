@@ -91,6 +91,7 @@ public class Chicken {
         healthConditions.add(condition);
     }
 
+
     //function that calculates the age of the chicken in years based off their date of birth. This uded both date and local date time, and returns an int
     public int chickenAge(){
         Date date = new Date();
@@ -115,6 +116,10 @@ public class Chicken {
                 return (yearDif - 1);
             }
         }
+    }
+
+    public String healthReport() {
+        return(healthConditions.toString());
     }
 
 
