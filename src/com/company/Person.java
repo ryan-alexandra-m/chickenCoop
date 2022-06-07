@@ -1,5 +1,6 @@
 package com.company;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,9 +11,9 @@ public class Person {
     Scanner scan= new Scanner(System.in);
     Map<String, Chicken> coop = new HashMap<>();
 
-    public void interact(){
+    public void interact() throws IOException {
         System.out.println("What would you like to do today? Would you like to:" + "\n" + "create a chicken => enter c "+ "\n" + "add a health condition => enter h" + "\n" +
-                "create a file for a chicken => enter f" + "\n" +  "create a flock => enter h" + "\n" + "add chickens to that flock=> enter l");
+                "create a file for a chicken => enter f" + "\n" +  "add a chicken to your flock => enter h");
         String answer= scan.nextLine();
         if(answer.equals("c")){
             System.out.println("What is the chickens name? EX- Specky");
@@ -95,18 +96,47 @@ public class Person {
                 System.out.println("what condition would you like to add? ");
                 String condition= scan.nextLine();
                 coop.get(userName).addHealthConditions(condition);
-            }
+            }System.out.println("This chicken has not been created yet");
         }
         if(answer.equals("f")){
             //create a file for a chicken
+            System.out.println("What chicken would you like to create a file for? ");
+            String p= scan.nextLine();
+            if(coop.containsKey(p)){
+                LocalDate today= LocalDate.now();
+                //creates the local date today to keep track in the file
+                FileCreate x= new FileCreate(today, "p");
+                //creates a new FileCreate object with the date and file name
+                String mes= x.readFile("/Users/ryan.alexandra/IdeaProjects/chickenCoop/" + p+ ".txt");
+                //reads what is in the file
+                String cStats= "name: " + coop.get(p).getName() + " , birthdate: " + coop.get(p).getBirthdate() + " , food preference: " + coop.get(p).getFoodPreference() + " , color: " + coop.get(p).getColor()
+                            + " , egg color: " + coop.get(p).getEggColor();
+                String age= (coop.get(p).chickenAge() + " years old");
+                x.finalWrite(mes, cStats, p, 1);
+                String mes2= x.readFile("/Users/ryan.alexandra/IdeaProjects/chickenCoop/"+ p + ".txt");
+                x.finalWrite(mes2, age, p, 2);
+                String mes3= x.readFile("/Users/ryan.alexandra/IdeaProjects/chickenCoop/"+ p+ ".txt");
+                x.addConditions(mes3, coop.get(p).healthConditions, p, 3);
         }
+            System.out.println("This chicken has not been created yet");}
         if(answer.equals("h")){
-            //create a flock
+            System.out.println("What chicken would you like to add to a flock? ");
+            String flockName= scan.nextLine();
+            if(coop.containsKey(flockName)){
+            Flock one= new Flock();
+                    one.addToFlock(coop.get(flockName));
+                    System.out.println(one.healthUpdates());
         }
-        if(answer.equals("l")){
-            //add chickens to a flock
-        }
+            System.out.println("That chicken is not in our system");}
 
+        System.out.println("would you like to continue? (y/n)");
+        String q= scan.nextLine();
+        if(q.equals("y")){
+            interact();
+        }
+        else{
+            System.out.println("thanks");
+        }
     }
 
                 //    //sets the localDate brithday to caluclate age

@@ -1,5 +1,9 @@
 
 
+health conditions []
+
+
+
 health conditions [curly toes, limping, depressed]
 
 
@@ -122,4 +126,9 @@ name: Specky , birthdate: 2020-04-15 , food preference: bugs , color: SPOTS , eg
 name: Specky , birthdate: 2020-04-15 , food preference: bugs , color: SPOTS , egg color: LIGHTBROWN
 
 2 years old
+
+
+name: Pangu , birthdate: 0202-12-12 , food preference: bugs , color: RED , egg color: WHITE
+
+1819 years old
 
